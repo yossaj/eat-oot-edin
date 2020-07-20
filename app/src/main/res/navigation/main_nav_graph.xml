@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_nav_graph"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/frontPage">
+
+    <fragment
+        android:id="@+id/frontPage"
+        android:name="com.example.eatoutedinburgh.ui.main.FrontPage"
+        android:label="FrontPage"
+        tools:layout="@layout/fragment_front_page"/>
+
+</navigation>
