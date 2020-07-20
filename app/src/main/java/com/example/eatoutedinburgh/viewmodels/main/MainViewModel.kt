@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel
 import com.example.eatoutedinburgh.data.MainRepository
 
 
-class MainViewModel @ViewModelInject constructor( @Assisted private val savedStateHandle: SavedStateHandle) : ViewModel(){
+class MainViewModel @ViewModelInject constructor(
+    private val mainRepository: MainRepository,
+    @Assisted private val savedStateHandle: SavedStateHandle) : ViewModel(){
 
 }

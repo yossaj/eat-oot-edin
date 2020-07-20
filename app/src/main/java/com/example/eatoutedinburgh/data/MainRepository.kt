@@ -1,8 +1,7 @@
 package com.example.eatoutedinburgh.data
 
-import javax.inject.Inject
+import com.example.eatoutedinburgh.data.apiservice.RestaurantApi
 
-
-class MainRepository  {
+class MainRepository constructor( private val restaurantApi: RestaurantApi) {
 
 }
