@@ -20,25 +20,16 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d("Viewmodel Hash", viewModel.hashCode().toString())
         viewModel.searchForRestaurants()
         setContentView(R.layout.activity_main)
         viewModel.restaurantList.observe(this, Observer {
             it?.let {
-                for (restaurant in it) {
-                    Log.d("Response", restaurant.toString())
+                for (restaurants in it) {
+                    Log.d("Response", restaurants.restaurant.name.toString())
                 }
             }
         })
-
-    }
-
-    override fun onCreateView(
-        parent: View?,
-        name: String,
-        context: Context,
-        attrs: AttributeSet
-    ): View? {
-        return super.onCreateView(parent, name, context, attrs)
 
     }
 }

@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="large_margin">30dp</dimen>
+
+
+    <dimen name="grid_spacing_large">30dp</dimen>
+    <dimen name="grid_spacing_small">26dp</dimen>
+    <dimen name="grid_margin_top_first">72dp</dimen>
+    <dimen name="grid_margin_top_second">56dp</dimen>
+    <dimen name="grid_margin_top_third">152dp</dimen>
+    <dimen name="grid_card_width_portrait">165dp</dimen>
+    <dimen name="grid_card_height_portrait">247dp</dimen>
+    <dimen name="grid_card_width_landscape">188dp</dimen>
+    <dimen name="grid_card_height_landscape">140dp</dimen>
 </resources>

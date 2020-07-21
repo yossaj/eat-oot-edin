@@ -1,13 +1,24 @@
 package com.example.eatoutedinburgh.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.viewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.example.eatoutedinburgh.R
+import com.example.eatoutedinburgh.data.models.Restaurant
+import com.example.eatoutedinburgh.databinding.FragmentFrontPageBinding
+import com.example.eatoutedinburgh.viewmodels.main.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FrontPage : Fragment() {
+
+    private val viewModel : MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,7 +31,18 @@ class FrontPage : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
 
-        return inflater.inflate(R.layout.fragment_front_page, container, false)
+        Log.d("Viewmodel Hash", viewModel.hashCode().toString())
+        val binding = FragmentFrontPageBinding.inflate(inflater)
+        val adapter = FrontPageRVAdapter()
+        binding.frontPageRecycView.adapter = adapter
+        viewModel.restaurantList.observe(viewLifecycleOwner, Observer {
+            val restaurants  = mutableListOf<Restaurant>()
+            it.forEach{ restaurants.add(it.restaurant) }
+            adapter.submitList(restaurants)
+
+        })
+
+        return binding.root
     }
 
 }
