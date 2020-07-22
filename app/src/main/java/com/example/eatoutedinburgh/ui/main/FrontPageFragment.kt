@@ -30,23 +30,25 @@ class FrontPageFragment : Fragment() {
 
         Log.d("Viewmodel Hash", viewModel.hashCode().toString())
         val binding = FragmentFrontPageBinding.inflate(inflater)
-        val adapter = CollectionAdapter()
+        val collectionAdapter = CollectionAdapter()
         viewModel.loadCollections()
-        binding.collectionRecyclerView.adapter = adapter
+        binding.collectionRecyclerView.adapter = collectionAdapter
         viewModel.collections.observe(viewLifecycleOwner, Observer {
-            adapter.submitList(it)
+            collectionAdapter.submitList(it)
         })
-//        binding.frontPageRecycView.adapter = adapter
-//        binding.searchBox.setOnKeyListener { v, keyCode, event ->
-//            val query = binding.textInputLayout.editText!!.text.toString()
-//            if(query.length >= 3){
-//                viewModel.searchForRestaurants(query)
-//                true
-//            }
-//            false}
-//        viewModel.restaurants.observe(viewLifecycleOwner, Observer { restaurants ->
-//            adapter.submitList(restaurants)
-//        })
+
+        val restaurantAdapter = RestaurantAdapter()
+        binding.restaurantRecyclerView.adapter = restaurantAdapter
+        binding.searchBox.setOnKeyListener { v, keyCode, event ->
+            val query = binding.textInputLayout.editText!!.text.toString()
+            if(query.length >= 3){
+                viewModel.searchForRestaurants(query)
+                true
+            }
+            false}
+        viewModel.restaurants.observe(viewLifecycleOwner, Observer { restaurants ->
+           restaurantAdapter.submitList(restaurants)
+        })
 
         return binding.root
     }

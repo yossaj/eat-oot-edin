@@ -4,7 +4,7 @@
 
 
     <dimen name="grid_spacing_large">30dp</dimen>
-    <dimen name="grid_spacing_small">26dp</dimen>
+    <dimen name="grid_spacing_small">22dp</dimen>
     <dimen name="grid_margin_top_first">72dp</dimen>
     <dimen name="grid_margin_top_second">56dp</dimen>
     <dimen name="grid_margin_top_third">152dp</dimen>
@@ -12,4 +12,9 @@
     <dimen name="grid_card_height_portrait">247dp</dimen>
     <dimen name="grid_card_width_landscape">188dp</dimen>
     <dimen name="grid_card_height_landscape">140dp</dimen>
+    <dimen name="grid_card_width_landscape_restaurant">94dp</dimen>
+    <dimen name="grid_card_height_landscape_restaurant">70dp</dimen>
+
+    <dimen name="detail_text">16sp</dimen>
+    <dimen name="sub_detail_text">4sp</dimen>
 </resources>
