@@ -18,6 +18,7 @@ class FrontPageRVAdapter : ListAdapter<Restaurant, RestaurantFrontViewHolder>(Re
     override fun onBindViewHolder(holder : RestaurantFrontViewHolder, position : Int) {
         val restaurant = getItem(position)
         holder.bind(restaurant)
+
     }
 
     class RestaurantDiffCallback : DiffUtil.ItemCallback<Restaurant>(){

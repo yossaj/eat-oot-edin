@@ -35,11 +35,12 @@ class FrontPage : Fragment() {
         val binding = FragmentFrontPageBinding.inflate(inflater)
         val adapter = FrontPageRVAdapter()
         binding.frontPageRecycView.adapter = adapter
-        viewModel.restaurantList.observe(viewLifecycleOwner, Observer {
-            val restaurants  = mutableListOf<Restaurant>()
-            it.forEach{ restaurants.add(it.restaurant) }
+        binding.searchBox.setOnClickListener {
+            val query = binding.textInputLayout.editText.toString()
+            viewModel.searchForRestaurants(query)
+        }
+        viewModel.restaurants.observe(viewLifecycleOwner, Observer { restaurants ->
             adapter.submitList(restaurants)
-
         })
 
         return binding.root

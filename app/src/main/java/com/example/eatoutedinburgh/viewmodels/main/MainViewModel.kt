@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.eatoutedinburgh.data.MainRepository
+import com.example.eatoutedinburgh.data.models.Restaurant
 import com.example.eatoutedinburgh.data.models.RestaurantList
 import javax.inject.Singleton
 
@@ -14,12 +15,11 @@ class MainViewModel @ViewModelInject constructor(
     private val mainRepository: MainRepository,
     @Assisted private val savedStateHandle: SavedStateHandle) : ViewModel(){
 
-    val restaurantList : LiveData<List<RestaurantList>>
-        get() = mainRepository.restaurantList
+    val restaurants : LiveData<List<Restaurant>>
+        get() = mainRepository.restaurants
 
-
-    fun searchForRestaurants(){
-        mainRepository.searchForRestaurants()
+    fun searchForRestaurants(q : String){
+        mainRepository.searchForRestaurants(q)
     }
 
 
