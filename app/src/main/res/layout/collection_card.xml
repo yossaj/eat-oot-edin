@@ -5,15 +5,16 @@
 
     <data>
         <variable
-            name="restaurant"
-            type="com.example.eatoutedinburgh.data.models.Restaurant" />
+            name="collection"
+            type="com.example.eatoutedinburgh.data.models.Collection" />
 
     </data>
 
 <com.google.android.material.card.MaterialCardView
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     app:cardBackgroundColor="@android:color/transparent"
+    android:layout_marginEnd="@dimen/grid_spacing_small"
     app:cardElevation="0dp"
     app:cardPreventCornerOverlap="true">
 
@@ -24,7 +25,7 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/restaurant_thumbnail"
+            android:id="@+id/collection_thumbnail"
             android:layout_width="match_parent"
             android:layout_height="@dimen/grid_card_height_landscape"
             android:background="?attr/colorPrimaryDark"
@@ -37,18 +38,18 @@
             android:padding="16dp">
 
             <TextView
-                android:id="@+id/restaurant_name"
+                android:id="@+id/collection_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{restaurant.name}"
+                android:text="@{collection.title}"
                 android:textAlignment="center"
                 android:textAppearance="?attr/textAppearanceSubtitle2" />
 
             <TextView
-                android:id="@+id/area"
+                android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="area"
+                android:text="@{collection.description}"
                 android:textAlignment="center"
                 android:textAppearance="?attr/textAppearanceBody2" />
         </LinearLayout>

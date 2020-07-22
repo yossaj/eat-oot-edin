@@ -6,17 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import com.example.eatoutedinburgh.R
-import com.example.eatoutedinburgh.data.models.Restaurant
 import com.example.eatoutedinburgh.databinding.FragmentFrontPageBinding
 import com.example.eatoutedinburgh.viewmodels.main.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class FrontPage : Fragment() {
+class FrontPageFragment : Fragment() {
 
     private val viewModel : MainViewModel by viewModels()
 
@@ -33,15 +30,23 @@ class FrontPage : Fragment() {
 
         Log.d("Viewmodel Hash", viewModel.hashCode().toString())
         val binding = FragmentFrontPageBinding.inflate(inflater)
-        val adapter = FrontPageRVAdapter()
-        binding.frontPageRecycView.adapter = adapter
-        binding.searchBox.setOnClickListener {
-            val query = binding.textInputLayout.editText.toString()
-            viewModel.searchForRestaurants(query)
-        }
-        viewModel.restaurants.observe(viewLifecycleOwner, Observer { restaurants ->
-            adapter.submitList(restaurants)
+        val adapter = CollectionAdapter()
+        viewModel.loadCollections()
+        binding.collectionRecyclerView.adapter = adapter
+        viewModel.collections.observe(viewLifecycleOwner, Observer {
+            adapter.submitList(it)
         })
+//        binding.frontPageRecycView.adapter = adapter
+//        binding.searchBox.setOnKeyListener { v, keyCode, event ->
+//            val query = binding.textInputLayout.editText!!.text.toString()
+//            if(query.length >= 3){
+//                viewModel.searchForRestaurants(query)
+//                true
+//            }
+//            false}
+//        viewModel.restaurants.observe(viewLifecycleOwner, Observer { restaurants ->
+//            adapter.submitList(restaurants)
+//        })
 
         return binding.root
     }
