@@ -1,24 +1,18 @@
 package com.example.eatoutedinburgh.ui.main
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
-import android.graphics.Color
-import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
-import android.widget.Toast
+import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.*
-import com.example.eatoutedinburgh.R
 import com.example.eatoutedinburgh.databinding.FragmentFrontPageBinding
 import com.example.eatoutedinburgh.viewmodels.main.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -67,33 +61,45 @@ class FrontPageFragment : Fragment() {
     fun shrinkRecyclerViewOnScroll(binding: FragmentFrontPageBinding){
 
         val height = binding.collectionRecyclerView.height.toFloat()
-        val moveUp = ObjectAnimator.ofFloat(binding.collectionRecyclerView, View.TRANSLATION_Y, -height)
-        var fadeOut = ObjectAnimator.ofArgb(binding.collectionRecyclerView,
-            "backgroundColor", Color.WHITE, Color.TRANSPARENT)
-//                    animator.repeatCount = 1
-//                    animator.repeatMode = ObjectAnimator.REVERSE
-//                    animator.disableViewDuringAnimation(translateButton)
-        val set = AnimatorSet()
-        set.playTogether(moveUp, fadeOut)
-        set.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationEnd(animation: Animator?) {
-                binding.collectionRecyclerView.visibility = View.GONE
 
-            }
-        })
 
         binding.restaurantRecyclerView.addOnScrollListener(object : OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if(dy > 1){
+                var scrollUp = true
+                if(dy > 0 && scrollUp){
+
+                    val restaurantMoveUp = ObjectAnimator.ofFloat(binding.restaurantRecyclerView, "translationY", -300F)
+                    restaurantMoveUp.duration = 100
+                    restaurantMoveUp.interpolator = AccelerateDecelerateInterpolator()
+                    val categoryMoveUp = ObjectAnimator.ofFloat(binding.collectionRecyclerView,"translationY", -300F)
+                    categoryMoveUp.duration = 100
+                    categoryMoveUp.interpolator = AccelerateDecelerateInterpolator()
+                    val set = AnimatorSet()
+                    set.playTogether(restaurantMoveUp, categoryMoveUp)
+
                     set.start()
-                }else if(dy < -1){
-                    binding.collectionRecyclerView.visibility = View.VISIBLE
-                    moveUp.repeatCount = 1
-                    moveUp.repeatMode = ObjectAnimator.REVERSE
-                    fadeOut.repeatCount = 1
-                    fadeOut.repeatCount = ObjectAnimator.REVERSE
+
+                    scrollUp = false
+//                    animator.disableViewDuringAnimation(translateButton)
+//                    restaurantMoveUp.start()
+//                    binding.collectionRecyclerView.startAnimation(AnimationUtils.loadAnimation(context, R.anim.downwards_transition))
+                }else if(dy < -5){
+
+                    val restaurantMoveUp = ObjectAnimator.ofFloat(binding.restaurantRecyclerView, "translationY", 0F)
+                    restaurantMoveUp.duration = 200
+                    restaurantMoveUp.interpolator = AccelerateDecelerateInterpolator()
+                    val categoryMoveUp = ObjectAnimator.ofFloat(binding.collectionRecyclerView,"translationY", 0F)
+                    categoryMoveUp.duration = 200
+                    categoryMoveUp.interpolator = AccelerateDecelerateInterpolator()
+                    val set = AnimatorSet()
+                    set.playTogether(restaurantMoveUp, categoryMoveUp)
+
                     set.start()
+
+                    scrollUp = true
+//                     binding.collectionRecyclerView.visibility = View.VISIBLE
+//                    binding.collectionRecyclerView.startAnimation(AnimationUtils.loadAnimation(context, R.anim.upwards_transition))
                 }
             }
 
