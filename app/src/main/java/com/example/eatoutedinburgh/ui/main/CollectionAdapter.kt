@@ -18,7 +18,6 @@ class CollectionAdapter : ListAdapter<Collection, CollectionViewHolder>(Collecti
     override fun onBindViewHolder(holder : CollectionViewHolder, position : Int) {
         val restaurant = getItem(position)
         holder.bind(restaurant)
-
     }
 
     class CollectionDiffCallback : DiffUtil.ItemCallback<Collection>(){

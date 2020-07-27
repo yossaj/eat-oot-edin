@@ -30,6 +30,10 @@ class MainViewModel @ViewModelInject constructor(
         mainRepository.loadCollections()
     }
 
+    fun clearResutaurantList(){
+        mainRepository.clearRestaurantList()
+    }
+
 
 
 }

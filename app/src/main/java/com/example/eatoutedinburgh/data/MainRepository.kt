@@ -61,8 +61,10 @@ class MainRepository constructor( private val restaurantApi: RestaurantApi) {
                 }
             }
         }
+    }
 
-
+    fun clearRestaurantList(){
+            restaurantList.postValue(emptyList())
     }
 
 }

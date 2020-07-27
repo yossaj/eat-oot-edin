@@ -10,9 +10,15 @@ class RestaurantViewHolder(val binding : RestaurantItemCardsBinding) : RecyclerV
 
     fun bind(restaurant : Restaurant){
         binding.restaurant = restaurant
-        if(restaurant.thumbnail.isNotBlank()){
+        if(restaurant.thumbnail.isNotBlank() && restaurant.id > 0){
             Picasso.get().load(restaurant.thumbnail).into(binding.restaurantThumbnail)
-        }else{
+        }else if(restaurant.id < 0){
+            val drawable = restaurant.thumbnail
+            Picasso.get().load(drawable).into(binding.restaurantThumbnail)
+            binding.restaurantArea.text = restaurant.url
+
+        }
+        else{
             Picasso.get().load(R.drawable.fork).into(binding.restaurantThumbnail)
         }
     }

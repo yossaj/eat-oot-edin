@@ -2,6 +2,7 @@ package com.example.eatoutedinburgh.ui.main
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -13,6 +14,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.*
+import com.example.eatoutedinburgh.R
+import com.example.eatoutedinburgh.data.models.Restaurant
 import com.example.eatoutedinburgh.databinding.FragmentFrontPageBinding
 import com.example.eatoutedinburgh.viewmodels.main.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,16 +47,26 @@ class FrontPageFragment : Fragment() {
 
         val restaurantAdapter = RestaurantAdapter()
         binding.restaurantRecyclerView.adapter = restaurantAdapter
+        restaurantAdapter.submitList(categoriesList())
         binding.searchBox.setOnKeyListener { v, keyCode, event ->
             val query = binding.textInputLayout.editText!!.text.toString()
             if(query.length >= 3){
                 viewModel.searchForRestaurants(query)
                 true
+            }else{
+                viewModel.clearResutaurantList()
+                restaurantAdapter.submitList(categoriesList())
             }
             false}
+
         viewModel.restaurants.observe(viewLifecycleOwner, Observer { restaurants ->
-           restaurantAdapter.submitList(restaurants)
+            if(restaurants.size > 0){
+                restaurantAdapter.submitList(restaurants)
+            }
+
+
         })
+
         shrinkRecyclerViewOnScroll(binding)
         return binding.root
     }
@@ -104,6 +117,18 @@ class FrontPageFragment : Fragment() {
             }
 
         })
+    }
+
+    fun categoriesList() : List<Restaurant>{
+        val coffee = prepareDrawable(R.drawable.coffee)
+        val coffeeItem = Restaurant(-1, "Coffee","Find a local brew!", "10",  coffee)
+        val breakfast = prepareDrawable(R.drawable.breakfast)
+        val breakfastItem = Restaurant(-1, "Breakfast", "Breakfast places near you", "10", breakfast)
+        return listOf(coffeeItem, breakfastItem)
+    }
+
+    fun prepareDrawable(drawable : Int) : String{
+        return Uri.parse("android.resource://com.example.eatoutedinburgh/" + drawable).toString()
     }
 
 
