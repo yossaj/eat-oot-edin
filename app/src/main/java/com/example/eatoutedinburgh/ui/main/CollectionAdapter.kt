@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import com.example.eatoutedinburgh.data.models.Collection
 import com.example.eatoutedinburgh.databinding.CollectionCardBinding
 
-class CollectionAdapter : ListAdapter<Collection, CollectionViewHolder>(CollectionDiffCallback()) {
+class CollectionAdapter(val clickListener : OnClickListener) : ListAdapter<Collection, CollectionViewHolder>(CollectionDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): CollectionViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -16,8 +16,9 @@ class CollectionAdapter : ListAdapter<Collection, CollectionViewHolder>(Collecti
     }
 
     override fun onBindViewHolder(holder : CollectionViewHolder, position : Int) {
-        val restaurant = getItem(position)
-        holder.bind(restaurant)
+        val collection = getItem(position)
+        holder.itemView.setOnClickListener{clickListener.onClick(collection.url)}
+        holder.bind(collection)
     }
 
     class CollectionDiffCallback : DiffUtil.ItemCallback<Collection>(){
@@ -28,6 +29,10 @@ class CollectionAdapter : ListAdapter<Collection, CollectionViewHolder>(Collecti
         override fun areContentsTheSame(oldItem : Collection, newItem : Collection): Boolean {
             return oldItem.equals(newItem)
         }
+    }
+
+    class OnClickListener(val clickListener: (url : String) -> Unit) {
+        fun onClick(url: String) = clickListener(url)
     }
 
 }

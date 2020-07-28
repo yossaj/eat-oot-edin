@@ -10,6 +10,7 @@ data class Collection(
     @SerializedName("image_url")
     @Expose
     val imageUrl : String,
+    val url: String,
     val title : String,
     val description : String
 )

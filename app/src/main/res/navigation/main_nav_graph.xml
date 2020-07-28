@@ -9,6 +9,20 @@
         android:id="@+id/frontPage"
         android:name="com.example.eatoutedinburgh.ui.main.FrontPageFragment"
         android:label="FrontPage"
-        tools:layout="@layout/fragment_front_page"/>
+        tools:layout="@layout/fragment_front_page">
+        <action
+            android:id="@+id/action_frontPage_to_webviewFragment"
+            app:destination="@id/webviewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/webviewFragment"
+        android:name="com.example.eatoutedinburgh.ui.collection.WebviewFragment"
+        android:label="fragment_webview"
+        tools:layout="@layout/fragment_webview" >
+        <argument
+            android:name="url"
+            app:argType="string"
+            android:defaultValue='"www.zamato.com"' />
+    </fragment>
 
 </navigation>

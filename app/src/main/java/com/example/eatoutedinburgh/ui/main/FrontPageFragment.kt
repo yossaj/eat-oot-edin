@@ -13,6 +13,7 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.*
 import com.example.eatoutedinburgh.R
@@ -39,7 +40,9 @@ class FrontPageFragment : Fragment() {
         Log.e("HASH", viewModel.hashCode().toString())
         Log.d("Viewmodel Hash", viewModel.hashCode().toString())
         val binding = FragmentFrontPageBinding.inflate(inflater)
-        val collectionAdapter = CollectionAdapter()
+        val collectionAdapter = CollectionAdapter(CollectionAdapter.OnClickListener{
+            this.findNavController().navigate(FrontPageFragmentDirections.actionFrontPageToWebviewFragment(it))
+        })
         viewModel.loadCollections()
         binding.collectionRecyclerView.adapter = collectionAdapter
         viewModel.collections.observe(viewLifecycleOwner, Observer {
