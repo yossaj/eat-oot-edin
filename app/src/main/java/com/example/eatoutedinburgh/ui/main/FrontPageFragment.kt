@@ -49,7 +49,9 @@ class FrontPageFragment : Fragment() {
             collectionAdapter.submitList(it)
         })
 
-        val restaurantAdapter = RestaurantAdapter()
+        val restaurantAdapter = RestaurantAdapter(RestaurantAdapter.OnClickListener{
+            viewModel.searchForRestaurants(it)
+        })
         binding.restaurantRecyclerView.adapter = restaurantAdapter
         restaurantAdapter.submitList(categoriesList())
         binding.searchBox.setOnKeyListener { v, keyCode, event ->

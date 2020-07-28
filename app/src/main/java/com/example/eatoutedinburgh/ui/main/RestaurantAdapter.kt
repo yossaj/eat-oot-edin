@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import com.example.eatoutedinburgh.data.models.Restaurant
 import com.example.eatoutedinburgh.databinding.RestaurantItemCardsBinding
 
-class RestaurantAdapter : ListAdapter<Restaurant, RestaurantViewHolder>(RestaurantDiffCallback()) {
+class RestaurantAdapter(val clickListener : RestaurantAdapter.OnClickListener) : ListAdapter<Restaurant, RestaurantViewHolder>(RestaurantDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): RestaurantViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -17,6 +17,9 @@ class RestaurantAdapter : ListAdapter<Restaurant, RestaurantViewHolder>(Restaura
 
     override fun onBindViewHolder(holder : RestaurantViewHolder, position : Int) {
         val restaurant = getItem(position)
+            holder.itemView.setOnClickListener {
+                clickListener.onClickCategory(restaurant.name)
+            }
         holder.bind(restaurant)
 
     }
@@ -29,6 +32,11 @@ class RestaurantAdapter : ListAdapter<Restaurant, RestaurantViewHolder>(Restaura
         override fun areContentsTheSame(oldItem : Restaurant, newItem : Restaurant): Boolean {
             return oldItem.equals(newItem)
         }
+    }
+
+    class OnClickListener(val clickListener: (text : String) -> Unit) {
+        fun onClickCategory(query: String) = clickListener(query)
+
     }
 
 }
