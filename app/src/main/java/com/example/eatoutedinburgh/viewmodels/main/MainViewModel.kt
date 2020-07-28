@@ -25,12 +25,21 @@ class MainViewModel @ViewModelInject constructor(
         mainRepository.searchForRestaurants(q)
     }
 
+    fun searchForRestaurantById(q : String){
+        mainRepository.searchForRestaurantById(q)
+    }
+
     fun loadCollections(){
         mainRepository.loadCollections()
     }
 
     fun clearResutaurantList(){
         mainRepository.clearRestaurantList()
+    }
+
+    init {
+        val id = 16774318
+        searchForRestaurantById(id.toString())
     }
 
 

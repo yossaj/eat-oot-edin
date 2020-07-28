@@ -48,6 +48,22 @@ class MainRepository constructor( private val restaurantApi: RestaurantApi) {
         }
     }
 
+    fun searchForRestaurantById(q : String){
+        uiScope.launch {
+            withContext(Dispatchers.IO){
+                try {
+                    restaurantApi.getRestaurantById(q)
+                }catch (e : Throwable){
+
+                }catch (e : HttpException){
+
+                }
+            }
+
+        }
+
+    }
+
     fun loadCollections(){
         uiScope.launch {
             withContext(Dispatchers.IO){
