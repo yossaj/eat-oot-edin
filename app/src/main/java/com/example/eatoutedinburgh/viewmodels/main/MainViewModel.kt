@@ -11,7 +11,6 @@ import com.example.eatoutedinburgh.data.models.Restaurant
 import com.example.eatoutedinburgh.data.models.RestaurantList
 import javax.inject.Singleton
 
-
 class MainViewModel @ViewModelInject constructor(
     private val mainRepository: MainRepository,
     @Assisted private val savedStateHandle: SavedStateHandle) : ViewModel(){

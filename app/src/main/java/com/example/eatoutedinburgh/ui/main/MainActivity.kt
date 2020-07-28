@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("Viewmodel Hash", viewModel.hashCode().toString())
+        Log.e("HASH", viewModel.hashCode().toString())
         setContentView(R.layout.activity_main)
 
     }

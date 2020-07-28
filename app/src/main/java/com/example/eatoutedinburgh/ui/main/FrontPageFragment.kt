@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
@@ -23,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FrontPageFragment : Fragment() {
 
-    private val viewModel : MainViewModel by viewModels()
+    private val viewModel : MainViewModel by activityViewModels<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +36,7 @@ class FrontPageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-
+        Log.e("HASH", viewModel.hashCode().toString())
         Log.d("Viewmodel Hash", viewModel.hashCode().toString())
         val binding = FragmentFrontPageBinding.inflate(inflater)
         val collectionAdapter = CollectionAdapter()
@@ -75,7 +76,6 @@ class FrontPageFragment : Fragment() {
 
         val height = binding.collectionRecyclerView.height.toFloat()
 
-
         binding.restaurantRecyclerView.addOnScrollListener(object : OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -90,13 +90,8 @@ class FrontPageFragment : Fragment() {
                     categoryMoveUp.interpolator = AccelerateDecelerateInterpolator()
                     val set = AnimatorSet()
                     set.playTogether(restaurantMoveUp, categoryMoveUp)
-
                     set.start()
-
                     scrollUp = false
-//                    animator.disableViewDuringAnimation(translateButton)
-//                    restaurantMoveUp.start()
-//                    binding.collectionRecyclerView.startAnimation(AnimationUtils.loadAnimation(context, R.anim.downwards_transition))
                 }else if(dy < -5){
 
                     val restaurantMoveUp = ObjectAnimator.ofFloat(binding.restaurantRecyclerView, "translationY", 0F)
@@ -107,12 +102,8 @@ class FrontPageFragment : Fragment() {
                     categoryMoveUp.interpolator = AccelerateDecelerateInterpolator()
                     val set = AnimatorSet()
                     set.playTogether(restaurantMoveUp, categoryMoveUp)
-
                     set.start()
-
                     scrollUp = true
-//                     binding.collectionRecyclerView.visibility = View.VISIBLE
-//                    binding.collectionRecyclerView.startAnimation(AnimationUtils.loadAnimation(context, R.anim.upwards_transition))
                 }
             }
 
