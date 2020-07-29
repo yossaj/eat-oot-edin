@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -21,52 +22,56 @@ import com.example.eatoutedinburgh.data.models.Restaurant
 import com.example.eatoutedinburgh.databinding.FragmentFrontPageBinding
 import com.example.eatoutedinburgh.viewmodels.main.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import org.jetbrains.annotations.NotNull
 
 @AndroidEntryPoint
 class FrontPageFragment : Fragment() {
 
+    private var catItemClickedCheck = false
+
     private val viewModel : MainViewModel by activityViewModels<MainViewModel>()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        Log.e("HASH", viewModel.hashCode().toString())
-        Log.d("Viewmodel Hash", viewModel.hashCode().toString())
         val binding = FragmentFrontPageBinding.inflate(inflater)
-        val collectionAdapter = CollectionAdapter(CollectionAdapter.OnClickListener{
-            this.findNavController().navigate(FrontPageFragmentDirections.actionFrontPageToWebviewFragment(it))
-        })
-        viewModel.loadCollections()
-        binding.collectionRecyclerView.adapter = collectionAdapter
-        viewModel.collections.observe(viewLifecycleOwner, Observer {
-            collectionAdapter.submitList(it)
-        })
+        collectionRecyclerViewSetup(binding)
+        restaurantRecyclerViewSetup(binding)
+        return binding.root
+    }
 
-        val restaurantAdapter = RestaurantAdapter(RestaurantAdapter.OnClickListener{
-            viewModel.searchForRestaurants(it)
+    private fun restaurantRecyclerViewSetup(binding: FragmentFrontPageBinding) {
+        val restaurantAdapter = RestaurantAdapter(RestaurantAdapter.OnClickListener {
+            val restaurant = it
+                if (catItemClickedCheck){
+                    viewModel._restaurantDetail.postValue(restaurant)
+                    this.findNavController().navigate(FrontPageFragmentDirections.actionFrontPageToRestaurantDetailFragment())
+                }else{
+                    val searchTerm = restaurant.name
+                    viewModel.searchForRestaurants(searchTerm)
+                    Toast.makeText(context, "Search for restaurant : $searchTerm", Toast.LENGTH_LONG).show()
+                    catItemClickedCheck = true
+                }
+
         })
         binding.restaurantRecyclerView.adapter = restaurantAdapter
         restaurantAdapter.submitList(categoriesList())
         binding.searchBox.setOnKeyListener { v, keyCode, event ->
             val query = binding.textInputLayout.editText!!.text.toString()
-            if(query.length >= 3){
+            if (query.length >= 3) {
                 viewModel.searchForRestaurants(query)
-                true
-            }else{
+                catItemClickedCheck = true
+            } else {
                 viewModel.clearResutaurantList()
                 restaurantAdapter.submitList(categoriesList())
+                catItemClickedCheck = false
             }
-            false}
+            false
+        }
 
         viewModel.restaurants.observe(viewLifecycleOwner, Observer { restaurants ->
-            if(restaurants.size > 0){
+            if (restaurants.size > 0 && catItemClickedCheck) {
                 restaurantAdapter.submitList(restaurants)
             }
 
@@ -74,7 +79,16 @@ class FrontPageFragment : Fragment() {
         })
 
         shrinkRecyclerViewOnScroll(binding)
-        return binding.root
+    }
+
+    private fun collectionRecyclerViewSetup(binding: FragmentFrontPageBinding) {
+        val collectionAdapter = CollectionAdapter(CollectionAdapter.OnClickListener{
+            this.findNavController().navigate(FrontPageFragmentDirections.actionFrontPageToWebviewFragment(it))
+        })
+        binding.collectionRecyclerView.adapter = collectionAdapter
+        viewModel.collections.observe(viewLifecycleOwner, Observer {
+            collectionAdapter.submitList(it)
+        })
     }
 
     fun shrinkRecyclerViewOnScroll(binding: FragmentFrontPageBinding){
@@ -86,7 +100,6 @@ class FrontPageFragment : Fragment() {
                 super.onScrolled(recyclerView, dx, dy)
                 var scrollUp = true
                 if(dy > 0 && scrollUp){
-
                     val restaurantMoveUp = ObjectAnimator.ofFloat(binding.restaurantRecyclerView, "translationY", -300F)
                     restaurantMoveUp.duration = 100
                     restaurantMoveUp.interpolator = AccelerateDecelerateInterpolator()

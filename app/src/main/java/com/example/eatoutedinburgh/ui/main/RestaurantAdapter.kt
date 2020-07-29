@@ -18,10 +18,14 @@ class RestaurantAdapter(val clickListener : RestaurantAdapter.OnClickListener) :
     override fun onBindViewHolder(holder : RestaurantViewHolder, position : Int) {
         val restaurant = getItem(position)
             holder.itemView.setOnClickListener {
-                clickListener.onClickCategory(restaurant.name)
+                if (restaurant.id < 0){
+                    clickListener.onClick(restaurant)
+                }else{
+                    clickListener.onClick(restaurant)
+                }
+
             }
         holder.bind(restaurant)
-
     }
 
     class RestaurantDiffCallback : DiffUtil.ItemCallback<Restaurant>(){
@@ -34,8 +38,9 @@ class RestaurantAdapter(val clickListener : RestaurantAdapter.OnClickListener) :
         }
     }
 
-    class OnClickListener(val clickListener: (text : String) -> Unit) {
-        fun onClickCategory(query: String) = clickListener(query)
+    class OnClickListener(val clickListener: (restaurant: Restaurant ) -> Unit) {
+        fun onClick(query: Restaurant) = clickListener(query)
+
 
     }
 
