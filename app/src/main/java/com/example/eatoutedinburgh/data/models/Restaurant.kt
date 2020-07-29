@@ -11,6 +11,13 @@ data class Restaurant(
     @SerializedName("timings")
     @Expose
     var businessHours : String,
+    var locations : String?,
+    @SerializedName("featured_image")
+    @Expose
+    var featuredImage : String?,
+    @SerializedName("photo_url")
+    @Expose
+    var photoUrl : String?,
     @SerializedName("thumb")
     @Expose
     var thumbnail : String

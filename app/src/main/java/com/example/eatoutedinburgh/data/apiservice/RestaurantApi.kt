@@ -29,5 +29,9 @@ interface RestaurantApi {
     @GET("api/v2.1/collections?city_id=76&count=5")
     suspend fun getCollection() : CollectionListResponse
 
+    @Headers(ZOMATO_API_KEY)
+    @GET("https://developers.zomato.com/api/v2.1/restaurant")
+    suspend fun getRestaurantById(@Query("res_id") id : String) : Restaurant
+
 
 }
