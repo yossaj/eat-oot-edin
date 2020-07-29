@@ -130,9 +130,9 @@ class FrontPageFragment : Fragment() {
 
     fun categoriesList() : List<Restaurant>{
         val coffee = prepareDrawable(R.drawable.coffee)
-        val coffeeItem = Restaurant(-1, "Coffee","Find a local brew!", "10",  coffee)
+        val coffeeItem = Restaurant(-1, "Coffee","Find a local brew!", "10",  null, null, null, coffee )
         val breakfast = prepareDrawable(R.drawable.breakfast)
-        val breakfastItem = Restaurant(-1, "Breakfast", "Breakfast places near you", "10", breakfast)
+        val breakfastItem = Restaurant(-1, "Breakfast", "Breakfast places near you", "10",null, null, null, breakfast)
         return listOf(coffeeItem, breakfastItem)
     }
 

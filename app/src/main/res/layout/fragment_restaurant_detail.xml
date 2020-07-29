@@ -16,39 +16,40 @@
         android:focusable="true"
         android:focusableInTouchMode="true">
 
+        <ImageView
+            android:id="@+id/detail_restaurant_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+
+            app:layout_constraintBottom_toTopOf="@id/detail_restaurant_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintVertical_chainStyle="packed" />
 
         <TextView
             android:id="@+id/detail_restaurant_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{restaurant.name}"
-            app:layout_constraintBottom_toTopOf="@id/detail_restaurant_image"
+            android:textSize="@dimen/large_title_text"
+            app:layout_constraintBottom_toTopOf="@id/detail_area"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed" />
-
-
-        <ImageView
-            android:id="@+id/detail_restaurant_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/detail_area"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/detail_restaurant_name"
-            tools:src="@tools:sample/avatars" />
-
+            app:layout_constraintTop_toBottomOf="@id/detail_restaurant_image" />
 
         <TextView
             android:id="@+id/detail_area"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:maxWidth="@dimen/grid_card_width_landscape"
+            android:text="@{restaurant.businessHours}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/detail_restaurant_image" />
+            app:layout_constraintTop_toBottomOf="@id/detail_restaurant_name" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

@@ -13,7 +13,7 @@ class RestaurantViewHolder(val binding : RestaurantItemCardsBinding) : RecyclerV
         binding.restaurant = restaurant
         if(restaurant.thumbnail.isNotBlank() && restaurant.id > 0){
             binding.restaurantThumbnail.scaleType = ImageView.ScaleType.CENTER_CROP
-            Picasso.get().load(restaurant.thumbnail).into(binding.restaurantThumbnail)
+            Picasso.get().load(restaurant.featuredImage).into(binding.restaurantThumbnail)
         }else if(restaurant.id < 0){
             binding.restaurantThumbnail.scaleType = ImageView.ScaleType.CENTER_CROP
             val drawable = restaurant.thumbnail

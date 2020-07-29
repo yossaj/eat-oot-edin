@@ -23,7 +23,6 @@ class RestaurantAdapter(val clickListener : RestaurantAdapter.OnClickListener) :
                 }else{
                     clickListener.onClick(restaurant)
                 }
-
             }
         holder.bind(restaurant)
     }
@@ -40,8 +39,6 @@ class RestaurantAdapter(val clickListener : RestaurantAdapter.OnClickListener) :
 
     class OnClickListener(val clickListener: (restaurant: Restaurant ) -> Unit) {
         fun onClick(query: Restaurant) = clickListener(query)
-
-
     }
 
 }
