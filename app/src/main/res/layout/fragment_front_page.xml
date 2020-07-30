@@ -20,12 +20,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/large_margin"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:layout_constraintVertical_bias="0"
             app:layout_constraintBottom_toTopOf="@+id/recycle_frame"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed"
+            android:hint="Search"
             app:startIconDrawable="@drawable/ic_baseline_search_24">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -33,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:hint="Search"/>
+                android:hint="Search for restaurant, cusine or dish"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 

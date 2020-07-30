@@ -35,21 +35,35 @@
             android:layout_height="wrap_content"
             android:text="@{restaurant.name}"
             android:textSize="@dimen/large_title_text"
-            app:layout_constraintBottom_toTopOf="@id/detail_area"
+            tools:text="Restaurant Name"
+            app:layout_constraintBottom_toTopOf="@id/detail_address"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/detail_restaurant_image" />
 
         <TextView
-            android:id="@+id/detail_area"
+            android:id="@+id/detail_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxWidth="@dimen/grid_card_width_landscape"
-            android:text="@{restaurant.businessHours}"
+            android:maxWidth="240dp"
+            android:gravity="center"
+            android:text="@{restaurant.location.address}"
+            tools:text="Address"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/detail_restaurant_name" />
+
+        <TextView
+            android:id="@+id/phone_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@{restaurant.phoneNumbers}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detail_address" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

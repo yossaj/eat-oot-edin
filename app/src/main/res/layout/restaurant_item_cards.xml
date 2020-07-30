@@ -52,9 +52,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/sub_detail_text"
-                    android:text="area"
+                    android:text="@{restaurant.location.locality}"
                     android:maxLines="2"
                     android:textAppearance="?attr/textAppearanceBody2" />
+
 
             </LinearLayout>
         </LinearLayout>

@@ -24,7 +24,10 @@ class RestaurantDetailFragment : Fragment() {
         val binding = FragmentRestaurantDetailBinding.inflate(inflater)
         viewModel.restaurantDetail.observe(viewLifecycleOwner, Observer {
            binding.restaurant = it
-            Picasso.get().load(it.featuredImage).into(binding.detailRestaurantImage)
+            if(it.thumbnail.isNotBlank()){
+                Picasso.get().load(it.featuredImage).into(binding.detailRestaurantImage)
+            }
+
         })
 
         return binding.root

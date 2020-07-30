@@ -11,7 +11,7 @@ data class Restaurant(
     @SerializedName("timings")
     @Expose
     var businessHours : String,
-    var locations : String?,
+    var location : Location?,
     @SerializedName("featured_image")
     @Expose
     var featuredImage : String?,
@@ -20,5 +20,8 @@ data class Restaurant(
     var photoUrl : String?,
     @SerializedName("thumb")
     @Expose
-    var thumbnail : String
+    var thumbnail : String,
+    @SerializedName("phone_numbers")
+    @Expose
+    var phoneNumbers : String?
 )
