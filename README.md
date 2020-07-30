@@ -1,4 +1,4 @@
 # eat-oot-edin
 
 
-<img src="https://i.imgur.com/SoeIsVn" width="200" title="Frontpage">
+<img src="https://i.imgur.com/SoeIsVn.png" width="200" title="Frontpage">
