@@ -17,7 +17,7 @@ class CollectionAdapter(val clickListener : OnClickListener) : ListAdapter<Colle
 
     override fun onBindViewHolder(holder : CollectionViewHolder, position : Int) {
         val collection = getItem(position)
-        holder.itemView.setOnClickListener{clickListener.onClick(collection.url)}
+        holder.itemView.setOnClickListener{clickListener.onClick(collection.shareUrl)}
         holder.bind(collection)
     }
 

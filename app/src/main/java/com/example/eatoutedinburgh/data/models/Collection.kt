@@ -12,5 +12,8 @@ data class Collection(
     val imageUrl : String,
     val url: String,
     val title : String,
-    val description : String
+    val description : String,
+    @SerializedName("share_url")
+    @Expose
+    val shareUrl : String
 )

@@ -1,13 +1,9 @@
 package com.example.eatoutedinburgh.ui.main
 
-import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
-import androidx.activity.viewModels
 import android.os.Bundle
-import android.util.AttributeSet
-import android.util.Log
-import android.view.View
-import androidx.lifecycle.Observer
+import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import com.example.eatoutedinburgh.R
 import com.example.eatoutedinburgh.viewmodels.main.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,8 +16,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.e("HASH", viewModel.hashCode().toString())
         setContentView(R.layout.activity_main)
+    }
 
+    override fun onBackPressed() {
+        if(viewModel.onBackPressedSwitch){
+            viewModel._triggerListRest.postValue(true)
+        }else{
+            super.onBackPressed()
+        }
     }
 }

@@ -28,6 +28,12 @@ class MainViewModel @ViewModelInject constructor(
         mainRepository.searchForRestaurants(q)
     }
 
+    var onBackPressedSwitch = false
+    val _triggerListRest = MutableLiveData<Boolean>()
+    val triggerListRest : LiveData<Boolean>
+        get() = _triggerListRest
+
+
     fun searchForRestaurantById(q : String){
         mainRepository.searchForRestaurantById(q)
     }

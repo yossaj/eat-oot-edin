@@ -50,8 +50,9 @@ class FrontPageFragment : Fragment() {
                 }else{
                     val searchTerm = restaurant.name
                     viewModel.searchForRestaurants(searchTerm)
-                    Toast.makeText(context, "Search for restaurant : $searchTerm", Toast.LENGTH_LONG).show()
                     catItemClickedCheck = true
+                    viewModel.onBackPressedSwitch = true
+                    binding.restaurantRcProgress.visibility = View.VISIBLE
                 }
 
         })
@@ -62,10 +63,9 @@ class FrontPageFragment : Fragment() {
             if (query.length >= 3) {
                 viewModel.searchForRestaurants(query)
                 catItemClickedCheck = true
+                viewModel.onBackPressedSwitch = true
             } else {
-                viewModel.clearResutaurantList()
-                restaurantAdapter.submitList(categoriesList())
-                catItemClickedCheck = false
+                resetRestaurantRecyclerView(restaurantAdapter, binding)
             }
             false
         }
@@ -74,12 +74,28 @@ class FrontPageFragment : Fragment() {
             if (restaurants.size > 0 && catItemClickedCheck) {
                 restaurantAdapter.submitList(restaurants)
             }
+        })
 
-
+        viewModel.triggerListRest.observe(viewLifecycleOwner, Observer {
+            if(it){
+                resetRestaurantRecyclerView(restaurantAdapter, binding)
+            }
         })
 
         shrinkRecyclerViewOnScroll(binding)
     }
+
+    private fun resetRestaurantRecyclerView(
+        restaurantAdapter: RestaurantAdapter,
+        binding: FragmentFrontPageBinding
+    ) {
+        viewModel.clearResutaurantList()
+        restaurantAdapter.submitList(categoriesList())
+        binding.restaurantRcProgress.visibility = View.GONE
+        catItemClickedCheck = false
+        viewModel.onBackPressedSwitch = false
+    }
+
 
     private fun collectionRecyclerViewSetup(binding: FragmentFrontPageBinding) {
         val collectionAdapter = CollectionAdapter(CollectionAdapter.OnClickListener{
@@ -94,7 +110,6 @@ class FrontPageFragment : Fragment() {
     fun shrinkRecyclerViewOnScroll(binding: FragmentFrontPageBinding){
 
         val height = binding.collectionRecyclerView.height.toFloat()
-
         binding.restaurantRecyclerView.addOnScrollListener(object : OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
