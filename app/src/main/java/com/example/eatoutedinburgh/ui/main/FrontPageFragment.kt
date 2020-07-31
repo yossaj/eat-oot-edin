@@ -4,15 +4,12 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -22,12 +19,11 @@ import com.example.eatoutedinburgh.data.models.Restaurant
 import com.example.eatoutedinburgh.databinding.FragmentFrontPageBinding
 import com.example.eatoutedinburgh.viewmodels.main.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import org.jetbrains.annotations.NotNull
 
 @AndroidEntryPoint
 class FrontPageFragment : Fragment() {
 
-    private var catItemClickedCheck = false
+    private var categoryItemClickedCheck = false
 
     private val viewModel : MainViewModel by activityViewModels<MainViewModel>()
 
@@ -44,13 +40,16 @@ class FrontPageFragment : Fragment() {
     private fun restaurantRecyclerViewSetup(binding: FragmentFrontPageBinding) {
         val restaurantAdapter = RestaurantAdapter(RestaurantAdapter.OnClickListener {
             val restaurant = it
-                if (catItemClickedCheck){
+                if (categoryItemClickedCheck){
                     viewModel._restaurantDetail.postValue(restaurant)
                     this.findNavController().navigate(FrontPageFragmentDirections.actionFrontPageToRestaurantDetailFragment())
+                    viewModel.onBackPressedSwitch = false
+                    categoryItemClickedCheck = false
+                    viewModel.clearResutaurantList()
                 }else{
                     val searchTerm = restaurant.name
                     viewModel.searchForRestaurants(searchTerm)
-                    catItemClickedCheck = true
+                    categoryItemClickedCheck = true
                     viewModel.onBackPressedSwitch = true
                     binding.restaurantRcProgress.visibility = View.VISIBLE
                 }
@@ -62,7 +61,7 @@ class FrontPageFragment : Fragment() {
             val query = binding.textInputLayout.editText!!.text.toString()
             if (query.length >= 3) {
                 viewModel.searchForRestaurants(query)
-                catItemClickedCheck = true
+                categoryItemClickedCheck = true
                 viewModel.onBackPressedSwitch = true
             } else {
                 resetRestaurantRecyclerView(restaurantAdapter, binding)
@@ -71,7 +70,7 @@ class FrontPageFragment : Fragment() {
         }
 
         viewModel.restaurants.observe(viewLifecycleOwner, Observer { restaurants ->
-            if (restaurants.size > 0 && catItemClickedCheck) {
+            if (restaurants.size > 0 && categoryItemClickedCheck) {
                 restaurantAdapter.submitList(restaurants)
             }
         })
@@ -92,7 +91,7 @@ class FrontPageFragment : Fragment() {
         viewModel.clearResutaurantList()
         restaurantAdapter.submitList(categoriesList())
         binding.restaurantRcProgress.visibility = View.GONE
-        catItemClickedCheck = false
+        categoryItemClickedCheck = false
         viewModel.onBackPressedSwitch = false
     }
 
