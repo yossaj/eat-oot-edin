@@ -2,4 +2,4 @@
 
 Restaurant search app built with Hilt and Retrofit.
 
-<img src="https://i.imgur.com/8FWo6Ks.gif" width="200" title="Frontpage">
+<img src="https://i.imgur.com/SoeIsVn.png" width="200" title="Frontpage">
