@@ -47,6 +47,16 @@
                     android:textSize="@dimen/detail_text"
                     android:textAppearance="?attr/textAppearanceSubtitle2" />
 
+                <RatingBar
+                    android:id="@+id/restaurant_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:numStars="5"
+                    android:stepSize="0.1"
+                    android:isIndicator="true"
+                    />
+
                 <TextView
                     android:id="@+id/restaurant_area"
                     android:layout_width="match_parent"

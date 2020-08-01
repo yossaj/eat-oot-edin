@@ -99,6 +99,7 @@ class FrontPageFragment : Fragment() {
     private fun collectionRecyclerViewSetup(binding: FragmentFrontPageBinding) {
         val collectionAdapter = CollectionAdapter(CollectionAdapter.OnClickListener{
             this.findNavController().navigate(FrontPageFragmentDirections.actionFrontPageToWebviewFragment(it))
+            viewModel.onBackPressedSwitch = false
         })
         binding.collectionRecyclerView.adapter = collectionAdapter
         viewModel.collections.observe(viewLifecycleOwner, Observer {
@@ -107,7 +108,6 @@ class FrontPageFragment : Fragment() {
     }
 
     fun shrinkRecyclerViewOnScroll(binding: FragmentFrontPageBinding){
-
         val height = binding.collectionRecyclerView.height.toFloat()
         binding.restaurantRecyclerView.addOnScrollListener(object : OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -144,9 +144,9 @@ class FrontPageFragment : Fragment() {
 
     fun categoriesList() : List<Restaurant>{
         val coffee = prepareDrawable(R.drawable.coffee)
-        val coffeeItem = Restaurant(-1, "Coffee","Find a local brew!", "10",  null, null, null, coffee , null)
+        val coffeeItem = Restaurant(-1, "Coffee","Find a local brew!", "10",  null, null, null, coffee , null, null)
         val breakfast = prepareDrawable(R.drawable.breakfast)
-        val breakfastItem = Restaurant(-1, "Breakfast", "Breakfast places near you", "10",null, null, null, breakfast, null)
+        val breakfastItem = Restaurant(-1, "Breakfast", "Breakfast places near you", "10",null, null, null, breakfast, null, null)
         return listOf(coffeeItem, breakfastItem)
     }
 

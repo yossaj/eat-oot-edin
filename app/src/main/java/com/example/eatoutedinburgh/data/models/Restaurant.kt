@@ -23,5 +23,8 @@ data class Restaurant(
     var thumbnail : String,
     @SerializedName("phone_numbers")
     @Expose
-    var phoneNumbers : String?
+    var phoneNumbers : String?,
+    @SerializedName("user_rating")
+    @Expose
+    val userRating : UserRating?
 )
