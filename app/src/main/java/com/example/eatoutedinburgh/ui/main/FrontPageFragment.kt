@@ -144,16 +144,15 @@ class FrontPageFragment : Fragment() {
 
     fun categoriesList() : List<Restaurant>{
         val coffee = prepareDrawable(R.drawable.coffee)
-        val coffeeItem = Restaurant(-1, "Coffee","Find a local brew!", "10",  null, null, null, coffee , null, null)
+        val coffeeItem = Restaurant(-1, "Coffee","Find a local brew!", "10",  null, null, null, coffee , null, null, null)
         val breakfast = prepareDrawable(R.drawable.breakfast)
-        val breakfastItem = Restaurant(-1, "Breakfast", "Breakfast places near you", "10",null, null, null, breakfast, null, null)
-        return listOf(coffeeItem, breakfastItem)
+        val breakfastItem = Restaurant(-1, "Breakfast", "Breakfast places near you", "10",null, null, null, breakfast, null, null, null)
+        val sushi = prepareDrawable(R.drawable.sushi)
+        val sushiItem = Restaurant(-1, "Sushi", "", "10", null, null, null, sushi, null, null, null)
+        return listOf(coffeeItem, breakfastItem, sushiItem)
     }
 
     fun prepareDrawable(drawable : Int) : String{
         return Uri.parse("android.resource://com.example.eatoutedinburgh/" + drawable).toString()
     }
-
-
-
 }

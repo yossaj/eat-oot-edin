@@ -26,5 +26,8 @@ data class Restaurant(
     var phoneNumbers : String?,
     @SerializedName("user_rating")
     @Expose
-    val userRating : UserRating?
+    val userRating : UserRating?,
+    @SerializedName("photos_url")
+    @Expose
+    val photosUrl : String?
 )
