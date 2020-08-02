@@ -6,12 +6,19 @@
     android:orientation="vertical"
     tools:context=".ui.collection.WebviewFragment">
 
+    <ProgressBar
+        android:id="@+id/webview_progress_bar"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/grid_card_height_portrait"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
     <WebView
         android:id="@+id/collection_webview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:backgroundTint="@color/colorAccent"
-        android:background="@color/colorAccent"
+        android:visibility="gone"
         />
 
 </LinearLayout>
