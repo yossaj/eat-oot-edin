@@ -53,8 +53,16 @@ class WebviewFragment : Fragment() {
             it.webViewClient = object : WebViewClient(){
 
                 override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
-                    it.visibility = View.VISIBLE
+
                     super.onPageStarted(view, url, favicon)
+                }
+
+                override fun onPageFinished(view: WebView?, url: String?) {
+                    it.loadUrl("javascript:(function() { " +
+                            "document.getElementsByTagName('header')[0].style.display=\"none\"; " +
+                            "})()")
+                    it.visibility = View.VISIBLE
+                    super.onPageFinished(view, url)
                 }
 
                 override fun onPageCommitVisible(view: WebView?, url: String?) {
